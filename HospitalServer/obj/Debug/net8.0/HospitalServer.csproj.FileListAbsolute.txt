@@ -33,3 +33,12 @@ C:\Users\nthab\source\repos\HospitalServer\HospitalServer\obj\Debug\net8.0\refin
 C:\Users\nthab\source\repos\HospitalServer\HospitalServer\obj\Debug\net8.0\HospitalServer.pdb
 C:\Users\nthab\source\repos\HospitalServer\HospitalServer\obj\Debug\net8.0\HospitalServer.genruntimeconfig.cache
 C:\Users\nthab\source\repos\HospitalServer\HospitalServer\obj\Debug\net8.0\ref\HospitalServer.dll
+C:\Users\nthab\source\repos\HospitalServer\HospitalServer\obj\Debug\net8.0\HospitalServer.sourcelink.json
+C:\Users\nthab\source\repos\HospitalServer\HospitalServer\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\nthab\source\repos\HospitalServer\HospitalServer\bin\Debug\net8.0\Microsoft.Extensions.Diagnostics.Abstractions.dll
+C:\Users\nthab\source\repos\HospitalServer\HospitalServer\bin\Debug\net8.0\Microsoft.Extensions.Hosting.Abstractions.dll
+C:\Users\nthab\source\repos\HospitalServer\HospitalServer\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\nthab\source\repos\HospitalServer\HospitalServer\bin\Debug\net8.0\Microsoft.Extensions.ObjectPool.dll
+C:\Users\nthab\source\repos\HospitalServer\HospitalServer\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+C:\Users\nthab\source\repos\HospitalServer\HospitalServer\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\nthab\source\repos\HospitalServer\HospitalServer\bin\Debug\net8.0\System.Net.WebSockets.WebSocketProtocol.dll
