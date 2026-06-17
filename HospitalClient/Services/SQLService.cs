@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static HospitalClient.Forms.ChatForm;
+using System.Windows.Forms;
+using System.Windows.Forms;
 
 namespace HospitalClient.Services
 {
@@ -14,8 +16,7 @@ namespace HospitalClient.Services
     //all user registration and authentication handled with MongoDB
     public class SQLService
     {
-        string connectionString = "Data Source=DESKTOP-GO1R8A8\\SQLEXPRESS;Initial Catalog=HospitalManagement;Integrated Security=True;Encrypt=False;";
-
+        string connectionString = "Data Source=RESENDE\\SQLEXPRESS;Initial Catalog=HospitalManagement;Integrated Security=True;Encrypt=False;";
         //Create new patient in SQL table
         //registration only captures these fields
         //additional fields are filled in by stagg through patient management form
@@ -92,55 +93,125 @@ namespace HospitalClient.Services
                 cmd.Parameters.AddWithValue("@UserId", userId);
                 return (int)cmd.ExecuteScalar();
             }
+
         }
 
-        //SQL helper method for chat functionality
-        //returns all patients that staff can message
-        public List<UserList> GetAllPatientUsers()
+        // Gets all patients so staff can view them in the Patient Management form
+        public DataTable GetAllPatients()
         {
-            var users = new List<UserList>();
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand(
-                    "SELECT UserId, FirstName + ' ' + LastName AS DisplayName FROM Patient", conn);
-                SqlDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
-                    users.Add(new UserList { UserId = reader["UserId"].ToString(), DisplayName = reader["DisplayName"].ToString() });
+
+                SqlDataAdapter adapter = new SqlDataAdapter(
+                    "SELECT PatientId, FirstName, LastName, Phone, Email, UserId FROM Patient", conn);
+
+                DataTable table = new DataTable();
+                adapter.Fill(table);
+
+                return table;
             }
-            return users;
         }
 
-        //SQL helper method for chat functionality
-        //returns all available doctors and nurses
-        public List<UserList> GetAllStaffUsers()
+        // Updates selected patient information
+        public void UpdatePatient(Patient patient)
         {
-            var users = new List<UserList>();
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
+
                 SqlCommand cmd = new SqlCommand(
-                    "SELECT UserId, FirstName + ' ' + LastName AS DisplayName FROM Staff WHERE Role IN ('Doctor', 'Nurse')", conn);
-                SqlDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
-                    users.Add(new UserList { UserId = reader["UserId"].ToString(), DisplayName = reader["DisplayName"].ToString() });
+                    "UPDATE Patient SET FirstName=@FirstName, LastName=@LastName, Phone=@Phone, Email=@Email WHERE PatientId=@PatientId", conn);
+
+                cmd.Parameters.AddWithValue("@PatientId", patient.PatientId);
+                cmd.Parameters.AddWithValue("@FirstName", patient.FirstName);
+                cmd.Parameters.AddWithValue("@LastName", patient.LastName);
+                cmd.Parameters.AddWithValue("@Phone", patient.Phone);
+                cmd.Parameters.AddWithValue("@Email", patient.Email);
+
+                int rows = cmd.ExecuteNonQuery();
+
+                MessageBox.Show("Rows updated: " + rows);
             }
-            return users;
         }
 
-        public void SaveChatMessage(string senderUserId, string receiverUserId, string message)
+        // Deletes selected patient from SQL table
+        public void DeletePatient(int patientId)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand(@"
-            INSERT INTO ChatMessage (SenderUserId, ReceiverUserId, Message, SentAt)
-            VALUES (@Sender, @Receiver, @Message, @SentAt)", conn);
-                cmd.Parameters.AddWithValue("@Sender", senderUserId);
-                cmd.Parameters.AddWithValue("@Receiver", receiverUserId);
-                cmd.Parameters.AddWithValue("@Message", message);
-                cmd.Parameters.AddWithValue("@SentAt", DateTime.Now);
+
+                SqlCommand cmd = new SqlCommand(
+                    "DELETE FROM Patient WHERE PatientId=@PatientId", conn);
+
+                cmd.Parameters.AddWithValue("@PatientId", patientId);
+
                 cmd.ExecuteNonQuery();
+            }
+        }
+
+        // Counts total patient visits using the Appointment table
+        public int GetTotalPatientVisits()
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(
+                    "SELECT COUNT(*) FROM Appointment", conn);
+
+                return (int)cmd.ExecuteScalar();
+            }
+        }
+
+        // Finds the most common patient concern/ailment
+        public string GetMostCommonConcern()
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(
+                    "SELECT TOP 1 Concern FROM Appointment WHERE Concern IS NOT NULL GROUP BY Concern ORDER BY COUNT(*) DESC", conn);
+
+                object result = cmd.ExecuteScalar();
+
+                return result == null ? "N/A" : result.ToString();
+            }
+        }
+
+        // Shows appointment totals grouped by status
+        public DataTable GetAppointmentStatusReport()
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                SqlDataAdapter adapter = new SqlDataAdapter(
+                    "SELECT Status, COUNT(*) AS Total FROM Appointment GROUP BY Status", conn);
+
+                DataTable table = new DataTable();
+                adapter.Fill(table);
+
+                return table;
+            }
+        }
+
+        // Shows medication/inventory report
+        public DataTable GetMedicationUsageReport()
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                SqlDataAdapter adapter = new SqlDataAdapter(
+                    "SELECT Name, Category, QuantityInStock FROM InventoryItem ORDER BY QuantityInStock ASC", conn);
+
+                DataTable table = new DataTable();
+                adapter.Fill(table);
+
+                return table;
             }
         }
     }
