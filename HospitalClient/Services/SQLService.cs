@@ -5,6 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using HospitalClient.Models;
+using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
+
 namespace HospitalClient.Services
 {
     //service used for SQL db operations
@@ -13,7 +18,7 @@ namespace HospitalClient.Services
     //all user registration and authentication handled with MongoDB
     public class SQLService
     {
-        string connectionString = "Data Source=DESKTOP-GO1R8A8\\SQLEXPRESS;Initial Catalog=HospitalManagement;Integrated Security=True;Encrypt=False;";
+        string connectionString = "Data Source=DYLAN-LAPTOP\\SQLEXPRESS;Initial Catalog=HospitalManagement;Integrated Security=True;Encrypt=False;";
 
         //Create new patient in SQL table
         //registration only captures these fields
@@ -90,6 +95,149 @@ namespace HospitalClient.Services
                     "SELECT StaffId FROM Staff WHERE UserId = @UserId", conn);
                 cmd.Parameters.AddWithValue("@UserId", userId);
                 return (int)cmd.ExecuteScalar();
+            }
+        }
+
+        // inventory methods
+
+        // get list of items
+        public List<InventoryItem> GetInventoryItems()
+        {
+            List<InventoryItem> items = new List<InventoryItem>();
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(
+                    "SELECT ItemId, Name, Category, QtyInStock, ReorderThreshold " +
+                    "FROM Inventory ORDER BY Category, Name", conn);
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        items.Add(new InventoryItem
+                        {
+                            ItemId = Convert.ToInt32(reader["ItemId"]),
+                            Name = reader["Name"].ToString(),
+                            Category = reader["Category"].ToString(),
+                            QtyInStock = Convert.ToInt32(reader["QtyInStock"]),
+                            ReorderThreshold = Convert.ToInt32(reader["ReorderThreshold"])
+                        });
+                    }
+                }
+            }
+
+            return items;
+        }
+
+        // get one item 
+        // pass in id return item
+        public InventoryItem GetInventoryItemById(int itemId)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(
+                    "SELECT ItemId, Name, Category, QtyInStock, ReorderThreshold " +
+                    "FROM Inventory WHERE ItemId = @ItemId", conn);
+
+                cmd.Parameters.AddWithValue("@ItemId", itemId);
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        return new InventoryItem
+                        {
+                            ItemId = Convert.ToInt32(reader["ItemId"]),
+                            Name = reader["Name"].ToString(),
+                            Category = reader["Category"].ToString(),
+                            QtyInStock = Convert.ToInt32(reader["QtyInStock"]),
+                            ReorderThreshold = Convert.ToInt32(reader["ReorderThreshold"])
+                        };
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        // insert item, returns item inserted
+        public InventoryItem InsertInventoryItem(InventoryItem item)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(
+                    "INSERT INTO Inventory (Name, Category, QtyInStock, ReorderThreshold) " +
+                    "OUTPUT INSERTED.ItemId " +
+                    "VALUES (@Name, @Category, @QtyInStock, @ReorderThreshold)", conn);
+
+                cmd.Parameters.AddWithValue("@Name", item.Name);
+                cmd.Parameters.AddWithValue("@Category", item.Category);
+                cmd.Parameters.AddWithValue("@QtyInStock", item.QtyInStock);
+                cmd.Parameters.AddWithValue("@ReorderThreshold", item.ReorderThreshold);
+
+                item.ItemId = Convert.ToInt32(cmd.ExecuteScalar());
+            }
+
+            return item;
+        }
+
+        // 
+        public void UpdateInventoryItem(InventoryItem item)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(
+                    "UPDATE Inventory SET Name = @Name, Category = @Category, " +
+                    "QtyInStock = @QtyInStock, ReorderThreshold = @ReorderThreshold " +
+                    "WHERE ItemId = @ItemId", conn);
+
+                cmd.Parameters.AddWithValue("@ItemId", item.ItemId);
+                cmd.Parameters.AddWithValue("@Name", item.Name);
+                cmd.Parameters.AddWithValue("@Category", item.Category);
+                cmd.Parameters.AddWithValue("@QtyInStock", item.QtyInStock);
+                cmd.Parameters.AddWithValue("@ReorderThreshold", item.ReorderThreshold);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public void UpdateInventoryQuantity(int itemId, int qtyInStock)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(
+                    "UPDATE Inventory SET QtyInStock = @QtyInStock WHERE ItemId = @ItemId", conn);
+
+                cmd.Parameters.AddWithValue("@ItemId", itemId);
+                cmd.Parameters.AddWithValue("@QtyInStock", qtyInStock);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public void DeleteInventoryItem(int itemId)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(
+                    "DELETE FROM Inventory WHERE ItemId = @ItemId", conn);
+
+                cmd.Parameters.AddWithValue("@ItemId", itemId);
+
+                cmd.ExecuteNonQuery();
             }
         }
     }

@@ -27,10 +27,15 @@ namespace HospitalClient.Forms
             buttonAppt.Visible = true;
             buttonChat.Visible = true;
 
-            // staff and admin only
-            buttonPatientMgmt.Visible = UserSession.CurrentUser.Role != "patient";
-            buttonInventory.Visible = UserSession.CurrentUser.Role != "patient";
-            buttonVitals.Visible = UserSession.CurrentUser.Role != "patient";
+            string role = UserSession.CurrentUser.Role.ToLower();
+
+            // admin, doctor, nurse only
+            bool isStaff = role == "admin" || role == "doctor" || role == "nurse";
+
+            buttonPatientMgmt.Visible = isStaff;
+            buttonInventory.Visible = isStaff;
+            buttonVitals.Visible = isStaff;
+
 
             // admin only
             buttonAnalytics.Visible = UserSession.CurrentUser.Role == "admin";

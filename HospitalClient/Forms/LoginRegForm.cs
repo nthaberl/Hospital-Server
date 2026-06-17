@@ -18,11 +18,12 @@ namespace HospitalClient.Forms
     {
         MongoDBService _mongoService;
         SQLService _sqlService;
+
         public LoginRegForm()
         {
             InitializeComponent();
 
-            //clearing session on form load to ensure previous user is logged out
+            // Clearing session on form load ensures the previous user is logged out.
             UserSession.CurrentUser = null;
             UserSession.CurrentPatientId = 0;
             UserSession.CurrentStaffId = 0;
@@ -33,28 +34,27 @@ namespace HospitalClient.Forms
 
         private void buttonRegister_Click(object sender, EventArgs e)
         {
-            // get info from user
             string username = textBoxUsername.Text;
             string password = textBoxPassword.Text;
             string email = textBoxEmail.Text;
             string role = comboBoxRole.Text.ToLower();
 
-            //validate all fields are filled for registration
-            if (username.Length == 0 || password.Length == 0 || email.Length == 0 || role.Length == 0)
+            if (username.Length == 0 ||
+                password.Length == 0 ||
+                email.Length == 0 ||
+                role.Length == 0)
             {
                 MessageBox.Show("Please fill out all fields!");
                 return;
             }
 
-            //using the userexists function from MongoDB service
             if (_mongoService.UserExists(username))
             {
-                MessageBox.Show("Username already exists!\nRegister with a different username");
+                MessageBox.Show(
+                    "Username already exists!\nRegister with a different username");
                 return;
             }
 
-            //First creating user account for MongoDB table
-            //used for user authentication and role based access
             var newUser = new User
             {
                 Username = username,
@@ -64,10 +64,6 @@ namespace HospitalClient.Forms
             };
 
             _mongoService.InsertUser(newUser);
-
-            //create corresponding SQL record based on role
-            //MongoDB UserId is stored in SQL to link the profile between both databases
-            //helps map logged in mongoDB user to SQL record
 
             if (role == "patient")
             {
@@ -79,9 +75,10 @@ namespace HospitalClient.Forms
                     Email = textBoxEmail.Text,
                     UserId = newUser.UserId.ToString()
                 };
-                _sqlService.InsertPatient(patient);
 
-            } else
+                _sqlService.InsertPatient(patient);
+            }
+            else
             {
                 var staff = new Staff
                 {
@@ -91,77 +88,132 @@ namespace HospitalClient.Forms
                     Role = role,
                     UserId = newUser.UserId.ToString()
                 };
+
                 _sqlService.InsertStaff(staff);
             }
 
-                //Creating record in SQL table dependent on role
-                //using SQL service methods
-                MessageBox.Show("Registered successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-
-
+            MessageBox.Show(
+                "Registered successfully!",
+                "Success",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
         }
 
-        //dynamically displays fields based on selected role
-        //phone number is patient specific, department is staff specific
-        //other fields in form are shared across all roles
         private void combobox_role_SelectedIndexChanged(object sender, EventArgs e)
         {
             string role = comboBoxRole.Text.ToLower();
 
-            // shared fields always visible
             textBoxFirstName.Visible = true;
             textBoxLastName.Visible = true;
 
-            // patient only
             textBoxPhone.Visible = role == "patient";
             labelPhone.Visible = role == "patient";
 
-            // staff only
-            textBoxDepartment.Visible = role == "doctor" || role == "nurse" || role == "admin";
-            labelDepartment.Visible = role == "doctor" || role == "nurse" || role == "admin";
+            textBoxDepartment.Visible =
+                role == "doctor" ||
+                role == "nurse" ||
+                role == "admin";
+
+            labelDepartment.Visible =
+                role == "doctor" ||
+                role == "nurse" ||
+                role == "admin";
         }
 
         private void buttonLogin_Click(object sender, EventArgs e)
         {
-
             string username = textBoxUsername.Text;
             string password = textBoxPassword.Text;
 
             if (username.Length == 0 || password.Length == 0)
             {
-                MessageBox.Show("Please fill out username and password fields!",
-                    "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(
+                    "Please fill out username and password fields!",
+                    "Validation Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
                 return;
             }
 
             var user = _mongoService.GetUser(username, password);
 
-            //map mongoDB UserId to SQL PatientId/StaffId
-            //stored in session so forms can query SQL records without repeated lookups
-            if (user != null)
+            if (user == null)
             {
-                UserSession.CurrentUser = user;
+                MessageBox.Show(
+                    "Invalid credentials.",
+                    "Login Failed",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+                return;
+            }
 
-                SQLService sqlService = new SQLService();
+            UserSession.CurrentUser = user;
 
-                if (user.Role == "patient")
-                {
-                    UserSession.CurrentPatientId = sqlService.GetPatientIdByUserId(user.UserId);
-                }
-                else
-                {
-                    UserSession.CurrentStaffId = sqlService.GetStaffIdByUserId(user.UserId);
-                }
+            string role = (user.Role ?? string.Empty).ToLower();
 
-                DashboardForm dashboard = new DashboardForm();
-                dashboard.Show();
-                this.Hide();
+            if (role == "patient")
+            {
+                UserSession.CurrentPatientId =
+                    _sqlService.GetPatientIdByUserId(user.UserId);
             }
             else
             {
-                MessageBox.Show("Invalid credentials.",
-                    "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                UserSession.CurrentStaffId =
+                    _sqlService.GetStaffIdByUserId(user.UserId);
+            }
+
+            bool receivesInventoryAlerts =
+                role == "admin" ||
+                role == "doctor" ||
+                role == "nurse";
+
+            if (receivesInventoryAlerts)
+            {
+                ShowLowStockAlertsAfterLogin();
+            }
+
+            DashboardForm dashboard = new DashboardForm();
+            dashboard.Show();
+            Hide();
+        }
+
+        private void ShowLowStockAlertsAfterLogin()
+        {
+            try
+            {
+                List<InventoryItem> lowStockItems =
+                    _sqlService
+                        .GetInventoryItems()
+                        .Where(item => item.IsLowStock)
+                        .ToList();
+
+                if (lowStockItems.Count == 0)
+                {
+                    return;
+                }
+
+                string itemLines = string.Join(
+                    Environment.NewLine,
+                    lowStockItems.Select(item =>
+                        item.Name +
+                        " - Current: " + item.QtyInStock +
+                        ", Threshold: " + item.ReorderThreshold));
+
+                MessageBox.Show(
+                    "The following inventory items need to be reordered:\n\n" +
+                    itemLines,
+                    "Low Stock Alert",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Login succeeded, but inventory alerts could not be loaded.\n\n" +
+                    ex.Message,
+                    "Inventory Alert Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
             }
         }
     }
