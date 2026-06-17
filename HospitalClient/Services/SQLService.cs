@@ -4,11 +4,12 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static HospitalClient.Forms.ChatForm;
 
 using HospitalClient.Models;
-using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
+//using System;
+//using System.Collections.Generic;
+//using System.Data.SqlClient;
 
 namespace HospitalClient.Services
 {
@@ -165,6 +166,45 @@ namespace HospitalClient.Services
             return null;
         }
 
+
+
+
+        //SQL helper method for chat functionality
+        //returns all patients that staff can message
+        public List<UserList> GetAllPatientUsers()
+        {
+            var users = new List<UserList>();
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(
+                    "SELECT UserId, FirstName + ' ' + LastName AS DisplayName FROM Patient", conn);
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                    users.Add(new UserList { UserId = reader["UserId"].ToString(), DisplayName = reader["DisplayName"].ToString() });
+            }
+            return users;
+        }
+
+        //SQL helper method for chat functionality
+        //returns all available doctors and nurses
+        public List<UserList> GetAllStaffUsers()
+        {
+            var users = new List<UserList>();
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(
+                    "SELECT UserId, FirstName + ' ' + LastName AS DisplayName FROM Staff WHERE Role IN ('Doctor', 'Nurse')", conn);
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                    users.Add(new UserList { UserId = reader["UserId"].ToString(), DisplayName = reader["DisplayName"].ToString() });
+            }
+            return users;
+        }
+
+        
+
         // insert item, returns item inserted
         public InventoryItem InsertInventoryItem(InventoryItem item)
         {
@@ -239,6 +279,23 @@ namespace HospitalClient.Services
 
                 cmd.ExecuteNonQuery();
             }
+        }
+
+        public void SaveChatMessage(string senderUserId, string receiverUserId, string message)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(@"
+                INSERT INTO ChatMessage (SenderUserId, ReceiverUserId, Message, SentAt)
+                VALUES (@Sender, @Receiver, @Message, @SentAt)", conn);
+                cmd.Parameters.AddWithValue("@Sender", senderUserId);
+                cmd.Parameters.AddWithValue("@Receiver", receiverUserId);
+                cmd.Parameters.AddWithValue("@Message", message);
+                cmd.Parameters.AddWithValue("@SentAt", DateTime.Now);
+
+            }
+
         }
     }
 }

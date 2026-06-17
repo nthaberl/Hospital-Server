@@ -1,3 +1,5 @@
 HospitalClient/bin/
 HospitalClient/obj/
 .vs/
+**/bin/
+**/obj/
