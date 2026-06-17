@@ -282,6 +282,9 @@
     <EmbeddedResource Include="Forms\LoginRegForm.resx">
       <DependentUpon>LoginRegForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PatientMonitoringForm.resx">
+      <DependentUpon>PatientMonitoringForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
