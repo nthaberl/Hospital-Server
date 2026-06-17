@@ -207,11 +207,17 @@
     <Compile Include="Services\MongoDBService.cs" />
     <Compile Include="Services\SQLService.cs" />
     <Compile Include="UserSession.cs" />
+    <EmbeddedResource Include="Forms\AnalyticsForm.resx">
+      <DependentUpon>AnalyticsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\DashboardForm.resx">
       <DependentUpon>DashboardForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\LoginRegForm.resx">
       <DependentUpon>LoginRegForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PatientManagementForm.resx">
+      <DependentUpon>PatientManagementForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

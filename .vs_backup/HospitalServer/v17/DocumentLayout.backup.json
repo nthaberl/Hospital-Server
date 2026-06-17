@@ -1,0 +1,364 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{D321E37F-BD4D-4276-ADAD-C892E71EC74C}|HospitalClient\\HospitalClient.csproj|C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\hospitalclient\\forms\\analyticsform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{D321E37F-BD4D-4276-ADAD-C892E71EC74C}|HospitalClient\\HospitalClient.csproj|solutionrelative:hospitalclient\\forms\\analyticsform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D321E37F-BD4D-4276-ADAD-C892E71EC74C}|HospitalClient\\HospitalClient.csproj|C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\hospitalclient\\forms\\patientmanagementform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{D321E37F-BD4D-4276-ADAD-C892E71EC74C}|HospitalClient\\HospitalClient.csproj|solutionrelative:hospitalclient\\forms\\patientmanagementform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D321E37F-BD4D-4276-ADAD-C892E71EC74C}|HospitalClient\\HospitalClient.csproj|c:\\users\\vitoria\\source\\repos\\hospital-server\\hospitalclient\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D321E37F-BD4D-4276-ADAD-C892E71EC74C}|HospitalClient\\HospitalClient.csproj|solutionrelative:hospitalclient\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D321E37F-BD4D-4276-ADAD-C892E71EC74C}|HospitalClient\\HospitalClient.csproj|C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\hospitalclient\\forms\\analyticsform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D321E37F-BD4D-4276-ADAD-C892E71EC74C}|HospitalClient\\HospitalClient.csproj|solutionrelative:hospitalclient\\forms\\analyticsform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D321E37F-BD4D-4276-ADAD-C892E71EC74C}|HospitalClient\\HospitalClient.csproj|C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\hospitalclient\\services\\sqlservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D321E37F-BD4D-4276-ADAD-C892E71EC74C}|HospitalClient\\HospitalClient.csproj|solutionrelative:hospitalclient\\services\\sqlservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D321E37F-BD4D-4276-ADAD-C892E71EC74C}|HospitalClient\\HospitalClient.csproj|C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\hospitalclient\\forms\\analyticsform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D321E37F-BD4D-4276-ADAD-C892E71EC74C}|HospitalClient\\HospitalClient.csproj|solutionrelative:hospitalclient\\forms\\analyticsform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D321E37F-BD4D-4276-ADAD-C892E71EC74C}|HospitalClient\\HospitalClient.csproj|C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\hospitalclient\\forms\\patientmanagementform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D321E37F-BD4D-4276-ADAD-C892E71EC74C}|HospitalClient\\HospitalClient.csproj|solutionrelative:hospitalclient\\forms\\patientmanagementform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D321E37F-BD4D-4276-ADAD-C892E71EC74C}|HospitalClient\\HospitalClient.csproj|C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\hospitalclient\\forms\\inventoryform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{D321E37F-BD4D-4276-ADAD-C892E71EC74C}|HospitalClient\\HospitalClient.csproj|solutionrelative:hospitalclient\\forms\\inventoryform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D321E37F-BD4D-4276-ADAD-C892E71EC74C}|HospitalClient\\HospitalClient.csproj|C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\hospitalclient\\models\\patient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D321E37F-BD4D-4276-ADAD-C892E71EC74C}|HospitalClient\\HospitalClient.csproj|solutionrelative:hospitalclient\\models\\patient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D321E37F-BD4D-4276-ADAD-C892E71EC74C}|HospitalClient\\HospitalClient.csproj|C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\hospitalclient\\forms\\loginregform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{D321E37F-BD4D-4276-ADAD-C892E71EC74C}|HospitalClient\\HospitalClient.csproj|solutionrelative:hospitalclient\\forms\\loginregform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D321E37F-BD4D-4276-ADAD-C892E71EC74C}|HospitalClient\\HospitalClient.csproj|C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\hospitalclient\\usersession.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D321E37F-BD4D-4276-ADAD-C892E71EC74C}|HospitalClient\\HospitalClient.csproj|solutionrelative:hospitalclient\\usersession.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D321E37F-BD4D-4276-ADAD-C892E71EC74C}|HospitalClient\\HospitalClient.csproj|C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\hospitalclient\\models\\staff.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D321E37F-BD4D-4276-ADAD-C892E71EC74C}|HospitalClient\\HospitalClient.csproj|solutionrelative:hospitalclient\\models\\staff.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D321E37F-BD4D-4276-ADAD-C892E71EC74C}|HospitalClient\\HospitalClient.csproj|C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\hospitalclient\\models\\inventory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D321E37F-BD4D-4276-ADAD-C892E71EC74C}|HospitalClient\\HospitalClient.csproj|solutionrelative:hospitalclient\\models\\inventory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D321E37F-BD4D-4276-ADAD-C892E71EC74C}|HospitalClient\\HospitalClient.csproj|C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\hospitalclient\\models\\chatmessage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D321E37F-BD4D-4276-ADAD-C892E71EC74C}|HospitalClient\\HospitalClient.csproj|solutionrelative:hospitalclient\\models\\chatmessage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D321E37F-BD4D-4276-ADAD-C892E71EC74C}|HospitalClient\\HospitalClient.csproj|C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\hospitalclient\\models\\appointment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D321E37F-BD4D-4276-ADAD-C892E71EC74C}|HospitalClient\\HospitalClient.csproj|solutionrelative:hospitalclient\\models\\appointment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D321E37F-BD4D-4276-ADAD-C892E71EC74C}|HospitalClient\\HospitalClient.csproj|C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\hospitalclient\\forms\\chatform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{D321E37F-BD4D-4276-ADAD-C892E71EC74C}|HospitalClient\\HospitalClient.csproj|solutionrelative:hospitalclient\\forms\\chatform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D321E37F-BD4D-4276-ADAD-C892E71EC74C}|HospitalClient\\HospitalClient.csproj|C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\hospitalclient\\forms\\appointmentform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{D321E37F-BD4D-4276-ADAD-C892E71EC74C}|HospitalClient\\HospitalClient.csproj|solutionrelative:hospitalclient\\forms\\appointmentform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3F48F4CD-94EF-4700-B5AA-3204B95BB3C5}|HospitalServer\\HospitalServer.csproj|c:\\users\\vitoria\\source\\repos\\hospital-server\\hospitalserver\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3F48F4CD-94EF-4700-B5AA-3204B95BB3C5}|HospitalServer\\HospitalServer.csproj|solutionrelative:hospitalserver\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D321E37F-BD4D-4276-ADAD-C892E71EC74C}|HospitalClient\\HospitalClient.csproj|C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\hospitalclient\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D321E37F-BD4D-4276-ADAD-C892E71EC74C}|HospitalClient\\HospitalClient.csproj|solutionrelative:hospitalclient\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D321E37F-BD4D-4276-ADAD-C892E71EC74C}|HospitalClient\\HospitalClient.csproj|C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\hospitalclient\\forms\\loginregform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D321E37F-BD4D-4276-ADAD-C892E71EC74C}|HospitalClient\\HospitalClient.csproj|solutionrelative:hospitalclient\\forms\\loginregform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D321E37F-BD4D-4276-ADAD-C892E71EC74C}|HospitalClient\\HospitalClient.csproj|C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\hospitalclient\\forms\\dashboardform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{D321E37F-BD4D-4276-ADAD-C892E71EC74C}|HospitalClient\\HospitalClient.csproj|solutionrelative:hospitalclient\\forms\\dashboardform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AnalyticsForm.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\HospitalClient\\Forms\\AnalyticsForm.cs",
+              "RelativeDocumentMoniker": "HospitalClient\\Forms\\AnalyticsForm.cs",
+              "ToolTip": "C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\HospitalClient\\Forms\\AnalyticsForm.cs [Design]",
+              "RelativeToolTip": "HospitalClient\\Forms\\AnalyticsForm.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-17T00:19:38.992Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Inventory.cs",
+              "DocumentMoniker": "C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\HospitalClient\\Models\\Inventory.cs",
+              "RelativeDocumentMoniker": "HospitalClient\\Models\\Inventory.cs",
+              "ToolTip": "C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\HospitalClient\\Models\\Inventory.cs",
+              "RelativeToolTip": "HospitalClient\\Models\\Inventory.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-15T23:13:18.6Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "UserSession.cs",
+              "DocumentMoniker": "C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\HospitalClient\\UserSession.cs",
+              "RelativeDocumentMoniker": "HospitalClient\\UserSession.cs",
+              "ToolTip": "C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\HospitalClient\\UserSession.cs",
+              "RelativeToolTip": "HospitalClient\\UserSession.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-14T01:04:38.442Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "PatientManagementForm.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\HospitalClient\\Forms\\PatientManagementForm.cs",
+              "RelativeDocumentMoniker": "HospitalClient\\Forms\\PatientManagementForm.cs",
+              "ToolTip": "C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\HospitalClient\\Forms\\PatientManagementForm.cs [Design]",
+              "RelativeToolTip": "HospitalClient\\Forms\\PatientManagementForm.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-15T23:15:06.388Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "ChatMessage.cs",
+              "DocumentMoniker": "C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\HospitalClient\\Models\\ChatMessage.cs",
+              "RelativeDocumentMoniker": "HospitalClient\\Models\\ChatMessage.cs",
+              "ToolTip": "C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\HospitalClient\\Models\\ChatMessage.cs",
+              "RelativeToolTip": "HospitalClient\\Models\\ChatMessage.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-16T00:45:13.96Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "SQLService.cs",
+              "DocumentMoniker": "C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\HospitalClient\\Services\\SQLService.cs",
+              "RelativeDocumentMoniker": "HospitalClient\\Services\\SQLService.cs",
+              "ToolTip": "C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\HospitalClient\\Services\\SQLService.cs",
+              "RelativeToolTip": "HospitalClient\\Services\\SQLService.cs",
+              "ViewState": "AgIAAKcAAAAAAAAAAAAgwNcAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-14T06:38:16.475Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Appointment.cs",
+              "DocumentMoniker": "C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\HospitalClient\\Models\\Appointment.cs",
+              "RelativeDocumentMoniker": "HospitalClient\\Models\\Appointment.cs",
+              "ToolTip": "C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\HospitalClient\\Models\\Appointment.cs",
+              "RelativeToolTip": "HospitalClient\\Models\\Appointment.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-16T00:45:10.453Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\HospitalClient\\Program.cs",
+              "RelativeDocumentMoniker": "HospitalClient\\Program.cs",
+              "ToolTip": "C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\HospitalClient\\Program.cs",
+              "RelativeToolTip": "HospitalClient\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-16T00:45:25.859Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AnalyticsForm.cs",
+              "DocumentMoniker": "C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\HospitalClient\\Forms\\AnalyticsForm.cs",
+              "RelativeDocumentMoniker": "HospitalClient\\Forms\\AnalyticsForm.cs",
+              "ToolTip": "C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\HospitalClient\\Forms\\AnalyticsForm.cs",
+              "RelativeToolTip": "HospitalClient\\Forms\\AnalyticsForm.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACMAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-17T00:49:06.505Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "AnalyticsForm.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\HospitalClient\\Forms\\AnalyticsForm.Designer.cs",
+              "RelativeDocumentMoniker": "HospitalClient\\Forms\\AnalyticsForm.Designer.cs",
+              "ToolTip": "C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\HospitalClient\\Forms\\AnalyticsForm.Designer.cs",
+              "RelativeToolTip": "HospitalClient\\Forms\\AnalyticsForm.Designer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-17T00:54:20.413Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "PatientManagementForm.cs",
+              "DocumentMoniker": "C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\HospitalClient\\Forms\\PatientManagementForm.cs",
+              "RelativeDocumentMoniker": "HospitalClient\\Forms\\PatientManagementForm.cs",
+              "ToolTip": "C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\HospitalClient\\Forms\\PatientManagementForm.cs",
+              "RelativeToolTip": "HospitalClient\\Forms\\PatientManagementForm.cs",
+              "ViewState": "AgIAABgAAAAAAAAAAAAuwDQAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-16T21:51:23.4Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Patient.cs",
+              "DocumentMoniker": "C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\HospitalClient\\Models\\Patient.cs",
+              "RelativeDocumentMoniker": "HospitalClient\\Models\\Patient.cs",
+              "ToolTip": "C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\HospitalClient\\Models\\Patient.cs",
+              "RelativeToolTip": "HospitalClient\\Models\\Patient.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-15T23:15:09.147Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Staff.cs",
+              "DocumentMoniker": "C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\HospitalClient\\Models\\Staff.cs",
+              "RelativeDocumentMoniker": "HospitalClient\\Models\\Staff.cs",
+              "ToolTip": "C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\HospitalClient\\Models\\Staff.cs",
+              "RelativeToolTip": "HospitalClient\\Models\\Staff.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-16T00:45:17.228Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "InventoryForm.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\HospitalClient\\Forms\\InventoryForm.cs",
+              "RelativeDocumentMoniker": "HospitalClient\\Forms\\InventoryForm.cs",
+              "ToolTip": "C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\HospitalClient\\Forms\\InventoryForm.cs [Design]",
+              "RelativeToolTip": "HospitalClient\\Forms\\InventoryForm.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-16T00:45:32.827Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "ChatForm.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\HospitalClient\\Forms\\ChatForm.cs",
+              "RelativeDocumentMoniker": "HospitalClient\\Forms\\ChatForm.cs",
+              "ToolTip": "C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\HospitalClient\\Forms\\ChatForm.cs [Design]",
+              "RelativeToolTip": "HospitalClient\\Forms\\ChatForm.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-16T00:45:32.126Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "LoginRegForm.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\HospitalClient\\Forms\\LoginRegForm.cs",
+              "RelativeDocumentMoniker": "HospitalClient\\Forms\\LoginRegForm.cs",
+              "ToolTip": "C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\HospitalClient\\Forms\\LoginRegForm.cs [Design]",
+              "RelativeToolTip": "HospitalClient\\Forms\\LoginRegForm.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-15T20:24:42.532Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "AppointmentForm.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\HospitalClient\\Forms\\AppointmentForm.cs",
+              "RelativeDocumentMoniker": "HospitalClient\\Forms\\AppointmentForm.cs",
+              "ToolTip": "C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\HospitalClient\\Forms\\AppointmentForm.cs [Design]",
+              "RelativeToolTip": "HospitalClient\\Forms\\AppointmentForm.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-16T00:45:30.403Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\HospitalServer\\Program.cs",
+              "RelativeDocumentMoniker": "HospitalServer\\Program.cs",
+              "ToolTip": "C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\HospitalServer\\Program.cs",
+              "RelativeToolTip": "HospitalServer\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-16T00:45:21.361Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\HospitalClient\\Models\\User.cs",
+              "RelativeDocumentMoniker": "HospitalClient\\Models\\User.cs",
+              "ToolTip": "C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\HospitalClient\\Models\\User.cs",
+              "RelativeToolTip": "HospitalClient\\Models\\User.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-16T00:45:18.371Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "LoginRegForm.cs",
+              "DocumentMoniker": "C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\HospitalClient\\Forms\\LoginRegForm.cs",
+              "RelativeDocumentMoniker": "HospitalClient\\Forms\\LoginRegForm.cs",
+              "ToolTip": "C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\HospitalClient\\Forms\\LoginRegForm.cs",
+              "RelativeToolTip": "HospitalClient\\Forms\\LoginRegForm.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAH4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-15T20:24:44.011Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "DashboardForm.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\vitoria\\source\\repos\\Hospital-Server\\HospitalClient\\Forms\\DashboardForm.cs",
+              "RelativeDocumentMoniker": "HospitalClient\\Forms\\DashboardForm.cs",
+              "ToolTip": "C:\\Users\\nthab\\source\\repos\\HospitalServer\\HospitalClient\\Forms\\DashboardForm.cs [Design]",
+              "RelativeToolTip": "..\\..\\..\\..\\nthab\\source\\repos\\HospitalServer\\HospitalClient\\Forms\\DashboardForm.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-14T00:48:07.861Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
