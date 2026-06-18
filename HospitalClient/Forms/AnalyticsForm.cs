@@ -32,5 +32,12 @@ namespace HospitalClient.Forms
         {
             LoadReports();
         }
+
+        private void buttonExit_Click_1(object sender, EventArgs e)
+        {
+            DashboardForm dashboardForm = new DashboardForm();
+            dashboardForm.Show();
+            this.Hide();
+        }
     }
 }

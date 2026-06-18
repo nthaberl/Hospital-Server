@@ -1,6 +1,5 @@
 
 using HospitalServer.Hubs;
-
 using HospitalServer;
 using Microsoft.AspNetCore.SignalR;
 
