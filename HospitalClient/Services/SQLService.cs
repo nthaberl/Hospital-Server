@@ -1,12 +1,14 @@
-﻿using System;
+﻿using HospitalClient.Models;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Windows.Forms;
 using static HospitalClient.Forms.ChatForm;
-
-using HospitalClient.Models;
 //using System;
 //using System.Collections.Generic;
 //using System.Data.SqlClient;
@@ -97,6 +99,7 @@ namespace HospitalClient.Services
                 cmd.Parameters.AddWithValue("@UserId", userId);
                 return (int)cmd.ExecuteScalar();
             }
+
         }
 
         // inventory methods
@@ -203,6 +206,43 @@ namespace HospitalClient.Services
             return users;
         }
 
+        public DataTable GetAllPatients()
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                SqlDataAdapter adapter = new SqlDataAdapter(
+                    "SELECT PatientId, FirstName, LastName, Phone, Email, UserId FROM Patient", conn);
+
+                DataTable table = new DataTable();
+                adapter.Fill(table);
+
+                return table;
+            }
+        }
+
+        // Updates selected patient information
+        public void UpdatePatient(Patient patient)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(
+                    "UPDATE Patient SET FirstName=@FirstName, LastName=@LastName, Phone=@Phone, Email=@Email WHERE PatientId=@PatientId", conn);
+
+                cmd.Parameters.AddWithValue("@PatientId", patient.PatientId);
+                cmd.Parameters.AddWithValue("@FirstName", patient.FirstName);
+                cmd.Parameters.AddWithValue("@LastName", patient.LastName);
+                cmd.Parameters.AddWithValue("@Phone", patient.Phone);
+                cmd.Parameters.AddWithValue("@Email", patient.Email);
+
+                int rows = cmd.ExecuteNonQuery();
+
+                MessageBox.Show("Rows updated: " + rows);
+            }
+        }
         
 
         // insert item, returns item inserted
@@ -296,6 +336,86 @@ namespace HospitalClient.Services
 
             }
 
+        }
+
+        // Deletes selected patient from SQL table
+        public void DeletePatient(int patientId)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(
+                    "DELETE FROM Patient WHERE PatientId=@PatientId", conn);
+
+                cmd.Parameters.AddWithValue("@PatientId", patientId);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        // Counts total patient visits using the Appointment table
+        public int GetTotalPatientVisits()
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(
+                    "SELECT COUNT(*) FROM Appointment", conn);
+
+                return (int)cmd.ExecuteScalar();
+            }
+        }
+
+        // Finds the most common patient concern/ailment
+        public string GetMostCommonConcern()
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(
+                    "SELECT TOP 1 Concern FROM Appointment WHERE Concern IS NOT NULL GROUP BY Concern ORDER BY COUNT(*) DESC", conn);
+
+                object result = cmd.ExecuteScalar();
+
+                return result == null ? "N/A" : result.ToString();
+            }
+        }
+
+        // Shows appointment totals grouped by status
+        public DataTable GetAppointmentStatusReport()
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                SqlDataAdapter adapter = new SqlDataAdapter(
+                    "SELECT Status, COUNT(*) AS Total FROM Appointment GROUP BY Status", conn);
+
+                DataTable table = new DataTable();
+                adapter.Fill(table);
+
+                return table;
+            }
+        }
+
+        // Shows medication/inventory report
+        public DataTable GetMedicationUsageReport()
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                SqlDataAdapter adapter = new SqlDataAdapter(
+                    "SELECT Name, Category, QuantityInStock FROM InventoryItem ORDER BY QuantityInStock ASC", conn);
+
+                DataTable table = new DataTable();
+                adapter.Fill(table);
+
+                return table;
+            }
         }
     }
 }
