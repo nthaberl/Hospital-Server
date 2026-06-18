@@ -109,5 +109,13 @@ namespace HospitalClient.Forms
         {
             btnRefresh_Click(sender, e);
         }
+
+        private void buttonExit_Click(object sender, EventArgs e)
+        {
+            DashboardForm dashboardForm = new DashboardForm();
+            dashboardForm.Show();
+            this.Hide();
+
+        }
     }
 }

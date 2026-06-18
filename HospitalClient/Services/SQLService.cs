@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Windows.Forms;
+using static HospitalClient.Forms.ChatForm;
 
 namespace HospitalClient.Services
 {
@@ -16,7 +16,11 @@ namespace HospitalClient.Services
     //all user registration and authentication handled with MongoDB
     public class SQLService
     {
-        string connectionString = "Data Source=RESENDE\\SQLEXPRESS;Initial Catalog=HospitalManagement;Integrated Security=True;Encrypt=False;";
+        //vitoria's conenction string
+        //string connectionString = "Data Source=RESENDE\\SQLEXPRESS;Initial Catalog=HospitalManagement;Integrated Security=True;Encrypt=False;";
+
+        //natascha's connection string
+        string connectionString = "Data Source=DESKTOP-GO1R8A8\\SQLEXPRESS;Initial Catalog=HospitalManagement;Integrated Security=True;Encrypt=False;";
         //Create new patient in SQL table
         //registration only captures these fields
         //additional fields are filled in by stagg through patient management form
@@ -94,6 +98,56 @@ namespace HospitalClient.Services
                 return (int)cmd.ExecuteScalar();
             }
 
+        }
+
+        //SQL helper method for chat functionality
+        //returns all patients that staff can message
+        public List<UserList> GetAllPatientUsers()
+        {
+            var users = new List<UserList>();
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(
+                    "SELECT UserId, FirstName + ' ' + LastName AS DisplayName FROM Patient", conn);
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                    users.Add(new UserList { UserId = reader["UserId"].ToString(), DisplayName = reader["DisplayName"].ToString() });
+            }
+            return users;
+        }
+
+        //SQL helper method for chat functionality
+        //returns all available doctors and nurses
+        public List<UserList> GetAllStaffUsers()
+        {
+            var users = new List<UserList>();
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(
+                    "SELECT UserId, FirstName + ' ' + LastName AS DisplayName FROM Staff WHERE Role IN ('Doctor', 'Nurse')", conn);
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                    users.Add(new UserList { UserId = reader["UserId"].ToString(), DisplayName = reader["DisplayName"].ToString() });
+            }
+            return users;
+        }
+
+        public void SaveChatMessage(string senderUserId, string receiverUserId, string message)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(@"
+            INSERT INTO ChatMessage (SenderUserId, ReceiverUserId, Message, SentAt)
+            VALUES (@Sender, @Receiver, @Message, @SentAt)", conn);
+                cmd.Parameters.AddWithValue("@Sender", senderUserId);
+                cmd.Parameters.AddWithValue("@Receiver", receiverUserId);
+                cmd.Parameters.AddWithValue("@Message", message);
+                cmd.Parameters.AddWithValue("@SentAt", DateTime.Now);
+                cmd.ExecuteNonQuery();
+            }
         }
 
         // Gets all patients so staff can view them in the Patient Management form
