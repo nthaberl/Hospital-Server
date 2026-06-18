@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Windows.Forms;
 using static HospitalClient.Forms.ChatForm;
 //using System;
 //using System.Collections.Generic;
@@ -21,7 +20,14 @@ namespace HospitalClient.Services
     //all user registration and authentication handled with MongoDB
     public class SQLService
     {
-        string connectionString = "Data Source=DYLAN-LAPTOP\\SQLEXPRESS;Initial Catalog=HospitalManagement;Integrated Security=True;Encrypt=False;";
+        //Dylan's SQL connection string
+        //string connectionString = "Data Source=DYLAN-LAPTOP\\SQLEXPRESS;Initial Catalog=HospitalManagement;Integrated Security=True;Encrypt=False;";
+
+        //Vitoria's SQL connection string
+        //string connectionString = "Data Source=RESENDE\\SQLEXPRESS;Initial Catalog=HospitalManagement;Integrated Security=True;Encrypt=False;";
+
+        //Natascha's SQL connection string 
+        string connectionString = "Data Source=DESKTOP-GO1R8A8\\SQLEXPRESS;Initial Catalog=HospitalManagement;Integrated Security=True;Encrypt=False;";
 
         //Create new patient in SQL table
         //registration only captures these fields

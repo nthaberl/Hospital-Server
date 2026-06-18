@@ -76,7 +76,7 @@ namespace HospitalClient.Forms
         private async void StartSignalRConnection()
         {
             _hubConnection = new HubConnectionBuilder()
-                .WithUrl("https://localhost:7049/inventoryHub")
+                .WithUrl("http://localhost:5059/inventoryHub")
                 .WithAutomaticReconnect()
                 .Build();
 
