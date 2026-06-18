@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "HospitalServer\\HospitalServer.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "HospitalClient\\HospitalClient.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]
