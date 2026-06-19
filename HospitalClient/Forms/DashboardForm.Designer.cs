@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
+            this.labelWelcome = new System.Windows.Forms.Label();
             this.buttonAppt = new System.Windows.Forms.Button();
             this.buttonInventory = new System.Windows.Forms.Button();
             this.buttonChat = new System.Windows.Forms.Button();
@@ -38,15 +38,15 @@
             this.buttonLogout = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // label1
+            // labelWelcome
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(115, 35);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(96, 24);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Welcome!";
+            this.labelWelcome.AutoSize = true;
+            this.labelWelcome.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelWelcome.Location = new System.Drawing.Point(50, 33);
+            this.labelWelcome.Name = "labelWelcome";
+            this.labelWelcome.Size = new System.Drawing.Size(198, 24);
+            this.labelWelcome.TabIndex = 0;
+            this.labelWelcome.Text = "Welcome, name (role)";
             // 
             // buttonAppt
             // 
@@ -134,7 +134,7 @@
             this.Controls.Add(this.buttonChat);
             this.Controls.Add(this.buttonInventory);
             this.Controls.Add(this.buttonAppt);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.labelWelcome);
             this.Name = "DashboardForm";
             this.Text = "DashboardForm";
             this.ResumeLayout(false);
@@ -144,7 +144,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelWelcome;
         private System.Windows.Forms.Button buttonAppt;
         private System.Windows.Forms.Button buttonInventory;
         private System.Windows.Forms.Button buttonChat;

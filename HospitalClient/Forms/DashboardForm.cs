@@ -1,4 +1,5 @@
 ﻿using HospitalClient.HospitalManagementSystem;
+using HospitalClient.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,6 +16,8 @@ namespace HospitalClient.Forms
     {
         public DashboardForm()
         {
+
+
             InitializeComponent();
             LoadDashboard();
         }
@@ -22,6 +25,15 @@ namespace HospitalClient.Forms
         //method to only display buttons available to user based on user's role
         private void LoadDashboard()
         {
+            //display logged-in user's name and role at top for clarity
+            //when running multiple instances
+            // fetch first name from SQL using the ID already resolved at login
+            SQLService sqlService = new SQLService();
+            string firstName = UserSession.CurrentStaffId != 0
+    ? sqlService.GetStaffFirstName(UserSession.CurrentStaffId)
+    : sqlService.GetPatientFirstName(UserSession.CurrentPatientId);
+            MessageBox.Show($"PatientId: {UserSession.CurrentPatientId}, FirstName: {firstName}");
+            labelWelcome.Text = $"Welcome, {firstName} ({UserSession.CurrentUser.Role})";
 
             // visible to all roles
             buttonAppt.Visible = true;
@@ -104,5 +116,7 @@ namespace HospitalClient.Forms
             patientMgmtForm.Show();
             this.Hide();
         }
+
+
     }
 }

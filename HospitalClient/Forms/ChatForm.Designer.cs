@@ -124,6 +124,7 @@
             this.Controls.Add(this.comboboxRecipient);
             this.Name = "ChatForm";
             this.Text = "ChatForm";
+            this.Load += new System.EventHandler(this.ChatForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
