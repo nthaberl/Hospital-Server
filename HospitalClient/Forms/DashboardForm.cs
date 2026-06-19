@@ -16,8 +16,6 @@ namespace HospitalClient.Forms
     {
         public DashboardForm()
         {
-
-
             InitializeComponent();
             LoadDashboard();
         }
@@ -28,11 +26,11 @@ namespace HospitalClient.Forms
             //display logged-in user's name and role at top for clarity
             //when running multiple instances
             // fetch first name from SQL using the ID already resolved at login
-            SQLService sqlService = new SQLService();
+            SQLService sqlService = new SQLService();   
             string firstName = UserSession.CurrentStaffId != 0
-    ? sqlService.GetStaffFirstName(UserSession.CurrentStaffId)
-    : sqlService.GetPatientFirstName(UserSession.CurrentPatientId);
-            MessageBox.Show($"PatientId: {UserSession.CurrentPatientId}, FirstName: {firstName}");
+            ? sqlService.GetStaffFirstName(UserSession.CurrentStaffId)
+            : sqlService.GetPatientFirstName(UserSession.CurrentPatientId);
+
             labelWelcome.Text = $"Welcome, {firstName} ({UserSession.CurrentUser.Role})";
 
             // visible to all roles

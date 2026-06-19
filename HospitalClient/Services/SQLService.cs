@@ -142,7 +142,7 @@ namespace HospitalClient.Services
             {
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(
-                    "SELECT FirstName FROM Staff WHERE StaffId = @UserId", conn);
+                    "SELECT FirstName FROM Staff WHERE StaffId = @StaffId", conn);
                 cmd.Parameters.AddWithValue("@StaffId", staffId);
                 return (string)cmd.ExecuteScalar();
             }
