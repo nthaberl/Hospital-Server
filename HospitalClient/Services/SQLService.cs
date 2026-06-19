@@ -8,9 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static HospitalClient.Forms.ChatForm;
-//using System;
-//using System.Collections.Generic;
-//using System.Data.SqlClient;
+
 
 namespace HospitalClient.Services
 {
@@ -18,20 +16,72 @@ namespace HospitalClient.Services
     //stores patients, staff, appointments, inventory, chat messages
     //used to query to for analytics data also
     //all user registration and authentication handled with MongoDB
+
     public class SQLService
     {
+        //--------------------------------------------------------------------//
+        //
+        //Connection strings
+        //only one can be active at a time
+        //comment out others when working with project on local machine
+        //
+        //--------------------------------------------------------------------//
+
         //Dylan's SQL connection string
-        string connectionString = "Data Source=DYLAN-LAPTOP\\SQLEXPRESS;Initial Catalog=HospitalManagement;Integrated Security=True;Encrypt=False;";
+        //string connectionString = "Data Source=DYLAN-LAPTOP\\SQLEXPRESS;Initial Catalog=HospitalManagement;Integrated Security=True;Encrypt=False;";
 
         //Vitoria's SQL connection string
         //string connectionString = "Data Source=RESENDE\\SQLEXPRESS;Initial Catalog=HospitalManagement;Integrated Security=True;Encrypt=False;";
 
         //Natascha's SQL connection string 
-        //string connectionString = "Data Source=DESKTOP-GO1R8A8\\SQLEXPRESS;Initial Catalog=HospitalManagement;Integrated Security=True;Encrypt=False;";
+        string connectionString = "Data Source=DESKTOP-GO1R8A8\\SQLEXPRESS;Initial Catalog=HospitalManagement;Integrated Security=True;Encrypt=False;";
+
+
+        //--------------------------------------------------------------------//
+        //
+        //User/Session Mapping Methods and Account Creation
+        //
+        //Methods runs once at login to bridge MongoDB user IDs to SQL integer IDs
+        //IDs are stored in UserSession to allow forms to populate with 
+        //patient/staff info removing the need to requery mongoDB
+        // - Natascha
+        //
+        //--------------------------------------------------------------------//
+
+        //mapping MongoDB objectID to SQL patientID
+        public int GetPatientIdByUserId(string userId)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(
+                    "SELECT PatientId FROM Patient WHERE UserId = @UserId", conn);
+                cmd.Parameters.AddWithValue("@UserId", userId);
+
+                //ExecuteScalar used for only a single digit being returned
+                //closes connection immediately after returning the value
+                //smaller network payload in comparison to ExecuteReader
+                return (int)cmd.ExecuteScalar();
+            }
+        }
+
+        //mapping MongoDB objectID to SQL StaffID
+        public int GetStaffIdByUserId(string userId)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(
+                    "SELECT StaffId FROM Staff WHERE UserId = @UserId", conn);
+                cmd.Parameters.AddWithValue("@UserId", userId);
+                return (int)cmd.ExecuteScalar();
+            }
+
+        }
 
         //Create new patient in SQL table
         //registration only captures these fields
-        //additional fields are filled in by stagg through patient management form
+        //additional fields are filled in by staff through patient management form
         public void InsertPatient(Patient patient)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -73,42 +123,39 @@ namespace HospitalClient.Services
             }
         }
 
-
-        //following two methods used once at login to capture Id, allowing forms to populate with
-        //patient/staff information without the need to query mongodb again
-
-        //mapping MongoDB objectID to SQL patientID
-        public int GetPatientIdByUserId(string userId)
+        //methods for grabbing the first name of logged in user
+        public string GetPatientFirstName(int patientId)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(
-                    "SELECT PatientId FROM Patient WHERE UserId = @UserId", conn);
-                cmd.Parameters.AddWithValue("@UserId", userId);
-
-                //ExecuteScalar used for only a single digit being returned
-                //closes connection immediately after returning the value
-                //smaller network payload in comparison to ExecuteReader
-                return (int)cmd.ExecuteScalar();
+                    "SELECT FirstName FROM Patient WHERE PatientId = @PatientId", conn);
+                cmd.Parameters.AddWithValue("@PatientId", patientId);
+                return (string)cmd.ExecuteScalar();
             }
         }
 
-        //mapping MongoDB objectID to SQL StaffID
-        public int GetStaffIdByUserId(string userId)
+        public string GetStaffFirstName(int staffId)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(
-                    "SELECT StaffId FROM Staff WHERE UserId = @UserId", conn);
-                cmd.Parameters.AddWithValue("@UserId", userId);
-                return (int)cmd.ExecuteScalar();
+                    "SELECT FirstName FROM Staff WHERE StaffId = @UserId", conn);
+                cmd.Parameters.AddWithValue("@StaffId", staffId);
+                return (string)cmd.ExecuteScalar();
             }
-
         }
 
-        // inventory methods
+
+
+        //--------------------------------------------------------------------//
+        //
+        //Inventory Methods
+        // - Dylan
+        //
+        //--------------------------------------------------------------------//
 
         // get list of items
         public List<InventoryItem> GetInventoryItems()
@@ -175,82 +222,6 @@ namespace HospitalClient.Services
             return null;
         }
 
-
-
-
-        //SQL helper method for chat functionality
-        //returns all patients that staff can message
-        public List<UserList> GetAllPatientUsers()
-        {
-            var users = new List<UserList>();
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                conn.Open();
-                SqlCommand cmd = new SqlCommand(
-                    "SELECT UserId, FirstName + ' ' + LastName AS DisplayName FROM Patient", conn);
-                SqlDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
-                    users.Add(new UserList { UserId = reader["UserId"].ToString(), DisplayName = reader["DisplayName"].ToString() });
-            }
-            return users;
-        }
-
-        //SQL helper method for chat functionality
-        //returns all available doctors and nurses
-        public List<UserList> GetAllStaffUsers()
-        {
-            var users = new List<UserList>();
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                conn.Open();
-                SqlCommand cmd = new SqlCommand(
-                    "SELECT UserId, FirstName + ' ' + LastName AS DisplayName FROM Staff WHERE Role IN ('Doctor', 'Nurse')", conn);
-                SqlDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
-                    users.Add(new UserList { UserId = reader["UserId"].ToString(), DisplayName = reader["DisplayName"].ToString() });
-            }
-            return users;
-        }
-
-        public DataTable GetAllPatients()
-        {
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                conn.Open();
-
-                SqlDataAdapter adapter = new SqlDataAdapter(
-                    "SELECT PatientId, FirstName, LastName, Phone, Email, UserId FROM Patient", conn);
-
-                DataTable table = new DataTable();
-                adapter.Fill(table);
-
-                return table;
-            }
-        }
-
-        // Updates selected patient information
-        public void UpdatePatient(Patient patient)
-        {
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                conn.Open();
-
-                SqlCommand cmd = new SqlCommand(
-                    "UPDATE Patient SET FirstName=@FirstName, LastName=@LastName, Phone=@Phone, Email=@Email WHERE PatientId=@PatientId", conn);
-
-                cmd.Parameters.AddWithValue("@PatientId", patient.PatientId);
-                cmd.Parameters.AddWithValue("@FirstName", patient.FirstName);
-                cmd.Parameters.AddWithValue("@LastName", patient.LastName);
-                cmd.Parameters.AddWithValue("@Phone", patient.Phone);
-                cmd.Parameters.AddWithValue("@Email", patient.Email);
-
-                int rows = cmd.ExecuteNonQuery();
-
-                MessageBox.Show("Rows updated: " + rows);
-            }
-        }
-        
-
         // insert item, returns item inserted
         public InventoryItem InsertInventoryItem(InventoryItem item)
         {
@@ -274,7 +245,6 @@ namespace HospitalClient.Services
             return item;
         }
 
-        // 
         public void UpdateInventoryItem(InventoryItem item)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -327,21 +297,51 @@ namespace HospitalClient.Services
             }
         }
 
-        public void SaveChatMessage(string senderUserId, string receiverUserId, string message)
+
+        //--------------------------------------------------------------------//
+        //
+        //Patient Management 
+        // - Vitoria
+        //
+        //--------------------------------------------------------------------//
+
+
+        public DataTable GetAllPatients()
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand(@"
-                INSERT INTO ChatMessage (SenderUserId, ReceiverUserId, Message, SentAt)
-                VALUES (@Sender, @Receiver, @Message, @SentAt)", conn);
-                cmd.Parameters.AddWithValue("@Sender", senderUserId);
-                cmd.Parameters.AddWithValue("@Receiver", receiverUserId);
-                cmd.Parameters.AddWithValue("@Message", message);
-                cmd.Parameters.AddWithValue("@SentAt", DateTime.Now);
 
+                SqlDataAdapter adapter = new SqlDataAdapter(
+                    "SELECT PatientId, FirstName, LastName, Phone, Email, UserId FROM Patient", conn);
+
+                DataTable table = new DataTable();
+                adapter.Fill(table);
+
+                return table;
             }
+        }
 
+        // Updates selected patient information
+        public void UpdatePatient(Patient patient)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(
+                    "UPDATE Patient SET FirstName=@FirstName, LastName=@LastName, Phone=@Phone, Email=@Email WHERE PatientId=@PatientId", conn);
+
+                cmd.Parameters.AddWithValue("@PatientId", patient.PatientId);
+                cmd.Parameters.AddWithValue("@FirstName", patient.FirstName);
+                cmd.Parameters.AddWithValue("@LastName", patient.LastName);
+                cmd.Parameters.AddWithValue("@Phone", patient.Phone);
+                cmd.Parameters.AddWithValue("@Email", patient.Email);
+
+                int rows = cmd.ExecuteNonQuery();
+
+                MessageBox.Show("Rows updated: " + rows);
+            }
         }
 
         // Deletes selected patient from SQL table
@@ -359,6 +359,74 @@ namespace HospitalClient.Services
                 cmd.ExecuteNonQuery();
             }
         }
+
+        //--------------------------------------------------------------------//
+        //
+        //Chat Methods
+        // - Natascha
+        //
+        //--------------------------------------------------------------------//
+
+        //SQL helper method for chat functionality
+        //returns all patients that staff can message in combobox on chatform
+        public List<UserList> GetAllPatientUsers()
+        {
+            var users = new List<UserList>();
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(
+                    "SELECT UserId, FirstName + ' ' + LastName AS DisplayName FROM Patient", conn);
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                    users.Add(new UserList { UserId = reader["UserId"].ToString(), DisplayName = reader["DisplayName"].ToString() });
+            }
+            return users;
+        }
+
+        //SQL helper method for chat functionality
+        //returns all available doctors and nurses in combobox on chatform
+        public List<UserList> GetAllStaffUsers()
+        {
+            var users = new List<UserList>();
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(
+                    "SELECT UserId, FirstName + ' ' + LastName AS DisplayName FROM Staff WHERE Role IN ('Doctor', 'Nurse')", conn);
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                    users.Add(new UserList { UserId = reader["UserId"].ToString(), DisplayName = reader["DisplayName"].ToString() });
+            }
+            return users;
+        }
+
+        //persists chat messages to SQL table 
+        //real-time delivery handled by SignalR
+        public void SaveChatMessage(string senderUserId, string receiverUserId, string message)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(@"
+                INSERT INTO ChatMessage (SenderUserId, ReceiverUserId, Message, SentAt)
+                VALUES (@Sender, @Receiver, @Message, @SentAt)", conn);
+                cmd.Parameters.AddWithValue("@Sender", senderUserId);
+                cmd.Parameters.AddWithValue("@Receiver", receiverUserId);
+                cmd.Parameters.AddWithValue("@Message", message);
+                cmd.Parameters.AddWithValue("@SentAt", DateTime.Now);
+                cmd.ExecuteNonQuery();
+            }
+
+        }
+
+
+        //--------------------------------------------------------------------//
+        //
+        //Analytics 
+        // - Vitoria
+        //
+        //--------------------------------------------------------------------//
 
         // Counts total patient visits using the Appointment table
         public int GetTotalPatientVisits()
@@ -415,7 +483,7 @@ namespace HospitalClient.Services
                 conn.Open();
 
                 SqlDataAdapter adapter = new SqlDataAdapter(
-                    "SELECT Name, Category, QuantityInStock FROM InventoryItem ORDER BY QuantityInStock ASC", conn);
+                    "SELECT Name, Category, QuantityInStock FROM Inventory ORDER BY QuantityInStock ASC", conn);
 
                 DataTable table = new DataTable();
                 adapter.Fill(table);
@@ -425,7 +493,12 @@ namespace HospitalClient.Services
         }
 
 
-        // appointment methods -dylan
+        //--------------------------------------------------------------------//
+        //
+        //Appointment Methods
+        // - Dylan
+        //
+        //--------------------------------------------------------------------//
 
         public DataTable GetPatientOptions()
         {

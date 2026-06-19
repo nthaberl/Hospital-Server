@@ -23,10 +23,15 @@ namespace HospitalClient.Forms
         {
             InitializeComponent();
             LoadRecipients();
+
+        }
+
+        private void ChatForm_Load(object sender, EventArgs e)
+        {
             InitializeSignalR();
         }
 
-        //helper function to populate dropdowm menu with appropriate user list based on
+        //helper function to populate dropdown menu with appropriate user list based on
         //the role of the person who is logged in
         private void LoadRecipients()
         {
