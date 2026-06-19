@@ -21,13 +21,13 @@ namespace HospitalClient.Services
     public class SQLService
     {
         //Dylan's SQL connection string
-        //string connectionString = "Data Source=DYLAN-LAPTOP\\SQLEXPRESS;Initial Catalog=HospitalManagement;Integrated Security=True;Encrypt=False;";
+        string connectionString = "Data Source=DYLAN-LAPTOP\\SQLEXPRESS;Initial Catalog=HospitalManagement;Integrated Security=True;Encrypt=False;";
 
         //Vitoria's SQL connection string
         //string connectionString = "Data Source=RESENDE\\SQLEXPRESS;Initial Catalog=HospitalManagement;Integrated Security=True;Encrypt=False;";
 
         //Natascha's SQL connection string 
-        string connectionString = "Data Source=DESKTOP-GO1R8A8\\SQLEXPRESS;Initial Catalog=HospitalManagement;Integrated Security=True;Encrypt=False;";
+        //string connectionString = "Data Source=DESKTOP-GO1R8A8\\SQLEXPRESS;Initial Catalog=HospitalManagement;Integrated Security=True;Encrypt=False;";
 
         //Create new patient in SQL table
         //registration only captures these fields
@@ -421,6 +421,129 @@ namespace HospitalClient.Services
                 adapter.Fill(table);
 
                 return table;
+            }
+        }
+
+
+        // appointment methods -dylan
+
+        public DataTable GetPatientOptions()
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                SqlDataAdapter adapter = new SqlDataAdapter(
+                    "SELECT PatientId, FirstName + ' ' + LastName AS DisplayName " +
+                    "FROM Patient ORDER BY LastName, FirstName", conn);
+
+                DataTable table = new DataTable();
+                adapter.Fill(table);
+
+                return table;
+            }
+        }
+
+        public DataTable GetStaffOptionsForAppointments()
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                SqlDataAdapter adapter = new SqlDataAdapter(
+                    "SELECT StaffId, FirstName + ' ' + LastName + ' (' + Role + ')' AS DisplayName " +
+                    "FROM Staff " +
+                    "WHERE LOWER(Role) IN ('doctor', 'nurse') " +
+                    "ORDER BY LastName, FirstName", conn);
+
+                DataTable table = new DataTable();
+                adapter.Fill(table);
+
+                return table;
+            }
+        }
+
+        // a appiontment 
+        // p patient
+        public DataTable GetAppointmentsForUser(string role, int patientId, int staffId)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                string query =
+                    "SELECT " +
+                    "a.AppointmentId, " +
+                    "a.PatientId, " +
+                    "a.StaffId, " +
+                    "p.FirstName + ' ' + p.LastName AS PatientName, " +
+                    "s.FirstName + ' ' + s.LastName AS StaffName, " +
+                    "a.ScheduledDateTime AS ScheduledDate, " +
+                    "a.Status, " +
+                    "a.Concern, " +
+                    "a.Notes " +
+                    "FROM Appointment a " +
+                    "INNER JOIN Patient p ON a.PatientId = p.PatientId " +
+                    "INNER JOIN Staff s ON a.StaffId = s.StaffId " +
+                    "WHERE " +
+                    "(@Role = 'admin') " +
+                    "OR (@Role = 'patient' AND a.PatientId = @PatientId) " +
+                    "OR ((@Role = 'doctor' OR @Role = 'nurse') AND a.StaffId = @StaffId) " +
+                    "ORDER BY a.ScheduledDateTime DESC";
+
+                SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
+                adapter.SelectCommand.Parameters.AddWithValue("@Role", role);
+                adapter.SelectCommand.Parameters.AddWithValue("@PatientId", patientId);
+                adapter.SelectCommand.Parameters.AddWithValue("@StaffId", staffId);
+
+                DataTable table = new DataTable();
+                adapter.Fill(table);
+
+                return table;
+            }
+        }
+
+        public int InsertAppointment(
+            int patientId,
+            int staffId,
+            DateTime scheduledDate,
+            string concern,
+            string notes)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(
+                    "INSERT INTO Appointment " +
+                    "(PatientId, StaffId, ScheduledDateTime, Status, Concern, Notes) " +
+                    "OUTPUT INSERTED.AppointmentId " +
+                    "VALUES " +
+                    "(@PatientId, @StaffId, @ScheduledDateTime, 'Scheduled', @Concern, @Notes)", conn);
+
+                cmd.Parameters.AddWithValue("@PatientId", patientId);
+                cmd.Parameters.AddWithValue("@StaffId", staffId);
+                cmd.Parameters.AddWithValue("@ScheduledDateTime", scheduledDate);
+                cmd.Parameters.AddWithValue("@Concern", concern);
+                cmd.Parameters.AddWithValue("@Notes", notes);
+
+                return Convert.ToInt32(cmd.ExecuteScalar());
+            }
+        }
+
+        public void CancelAppointment(int appointmentId)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(
+                    "UPDATE Appointment SET Status = 'Cancelled' WHERE AppointmentId = @AppointmentId",
+                    conn);
+
+                cmd.Parameters.AddWithValue("@AppointmentId", appointmentId);
+
+                cmd.ExecuteNonQuery();
             }
         }
     }
