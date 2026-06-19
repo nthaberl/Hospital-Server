@@ -483,7 +483,7 @@ namespace HospitalClient.Services
                 conn.Open();
 
                 SqlDataAdapter adapter = new SqlDataAdapter(
-                    "SELECT Name, Category, QuantityInStock FROM Inventory ORDER BY QuantityInStock ASC", conn);
+                    "SELECT Name, Category, QtyInStock FROM Inventory ORDER BY QtyInStock ASC", conn);
 
                 DataTable table = new DataTable();
                 adapter.Fill(table);
